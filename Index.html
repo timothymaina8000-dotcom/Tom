@@ -1,0 +1,690 @@
+echo "# Tom" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/timothymaina8000-dotcom/Tom.git
+git push -u origin main
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyWay | flight booking</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(145deg, #0b1a2e 0%, #1b2f44 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    /* main card */
+    .booking-card {
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      padding: 2rem 2.2rem;
+      transition: all 0.2s;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 0.35rem;
+    }
+
+    h1 i {
+      color: #6fc1ff;
+      font-size: 2rem;
+    }
+
+    .subhead {
+      color: #a0c2dd;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      border-left: 3px solid #3d8ec9;
+      padding-left: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+
+    /* grid layout */
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* form panel */
+    .form-panel {
+      background: rgba(18, 30, 44, 0.7);
+      border-radius: 1.8rem;
+      padding: 1.8rem 1.8rem 1.8rem 1.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .form-panel h2 {
+      color: #d1e6ff;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .form-panel h2 i {
+      color: #6fc1ff;
+      font-size: 1.2rem;
+    }
+
+    /* input groups */
+    .input-group {
+      margin-bottom: 1.35rem;
+    }
+
+    .input-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #b6d0e8;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+
+    .input-group label i {
+      font-size: 0.9rem;
+      color: #5c9dcc;
+      width: 18px;
+      text-align: center;
+    }
+
+    /* select & input styling */
+    .input-wrapper {
+      position: relative;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      background: #0d1c2b;
+      border: 1.5px solid #2a4157;
+      border-radius: 1.2rem;
+      color: white;
+      font-size: 1rem;
+      font-weight: 500;
+      outline: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%236fc1ff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1.2rem center;
+      background-size: 1.2rem;
+    }
+
+    input:focus, select:focus {
+      border-color: #3d8ec9;
+      box-shadow: 0 0 0 4px rgba(61, 142, 201, 0.2);
+    }
+
+    /* date row */
+    .date-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    /* class selector special */
+    .class-options {
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 0.3rem;
+    }
+
+    .class-option {
+      flex: 1;
+      background: #0d1c2b;
+      border: 1.5px solid #2a4157;
+      border-radius: 1.2rem;
+      padding: 0.8rem 0.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #b0cde7;
+      transition: all 0.15s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .class-option i {
+      font-size: 1.2rem;
+      color: #4b7fa0;
+    }
+
+    .class-option.selected {
+      background: #1d3b55;
+      border-color: #6fc1ff;
+      color: white;
+      box-shadow: 0 5px 12px rgba(0, 120, 255, 0.2);
+    }
+
+    .class-option.selected i {
+      color: #6fc1ff;
+    }
+
+    .class-option small {
+      font-size: 0.7rem;
+      font-weight: 400;
+      opacity: 0.7;
+    }
+
+    /* summary panel */
+    .summary-panel {
+      background: rgba(11, 24, 36, 0.8);
+      border-radius: 1.8rem;
+      padding: 1.8rem;
+      border: 1px solid rgba(111, 193, 255, 0.15);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .summary-panel h2 {
+      color: #d1e6ff;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .summary-panel h2 i {
+      color: #6fc1ff;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.9rem 0;
+      border-bottom: 1px dashed #2c4054;
+      color: #c2d9ee;
+      font-size: 0.95rem;
+    }
+
+    .summary-item span:first-child {
+      font-weight: 400;
+      opacity: 0.85;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .summary-item span:first-child i {
+      width: 18px;
+      color: #6fc1ff;
+      font-size: 0.9rem;
+    }
+
+    .summary-item span:last-child {
+      font-weight: 600;
+      color: white;
+      font-size: 1.05rem;
+    }
+
+    .summary-item.total {
+      border-bottom: none;
+      margin-top: 0.6rem;
+      padding-top: 1.2rem;
+      border-top: 2px solid #2d4c68;
+    }
+
+    .summary-item.total span:first-child {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #b6d0e8;
+    }
+
+    .summary-item.total span:last-child {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #6fc1ff;
+      letter-spacing: -1px;
+    }
+
+    /* pay & confirm button */
+    .pay-btn {
+      margin-top: 1.8rem;
+      background: linear-gradient(135deg, #1f6ea8, #2f8bc9);
+      border: none;
+      border-radius: 2rem;
+      padding: 1.2rem 0;
+      width: 100%;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 12px 25px -6px #0f3b5c;
+      letter-spacing: 0.5px;
+    }
+
+    .pay-btn i {
+      font-size: 1.2rem;
+    }
+
+    .pay-btn:hover {
+      background: linear-gradient(135deg, #2680c2, #3e9ee0);
+      transform: scale(1.01);
+      box-shadow: 0 18px 30px -8px #0a3552;
+    }
+
+    .pay-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* confirmation message */
+    .confirmation-message {
+      margin-top: 1.2rem;
+      background: #1b3d33;
+      border: 1px solid #4cd18b;
+      border-radius: 2rem;
+      padding: 1rem 1.5rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #b3f0cd;
+      font-weight: 500;
+      font-size: 1rem;
+      animation: fade 0.3s ease;
+    }
+
+    .confirmation-message i {
+      color: #4cd18b;
+      font-size: 1.4rem;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* responsive */
+    @media (max-width: 800px) {
+      .booking-card { padding: 1.5rem; }
+      .booking-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      h1 { font-size: 1.8rem; }
+    }
+
+    /* small tweaks */
+    .hint {
+      font-size: 0.72rem;
+      color: #7399b9;
+      margin-top: 5px;
+      padding-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="booking-card">
+    <h1>
+      <i class="fas fa-plane"></i> SkyWay
+    </h1>
+    <div class="subhead">
+      <i class="fas fa-compass"></i> Book your next flight — choose destination, time, class, and pay.
+    </div>
+
+    <div class="booking-grid">
+      <!-- LEFT: form -->
+      <div class="form-panel">
+        <h2><i class="fas fa-pen"></i> Flight details</h2>
+
+        <!-- destination -->
+        <div class="input-group">
+          <label><i class="fas fa-map-pin"></i> Destination</label>
+          <div class="input-wrapper">
+            <select id="destinationSelect">
+              <option value="London (LHR)" data-price="320">🇬🇧 London (LHR) — $320</option>
+              <option value="Paris (CDG)" data-price="280">🇫🇷 Paris (CDG) — $280</option>
+              <option value="New York (JFK)" data-price="450">🇺🇸 New York (JFK) — $450</option>
+              <option value="Tokyo (HND)" data-price="620">🇯🇵 Tokyo (HND) — $620</option>
+              <option value="Dubai (DXB)" data-price="390">🇦🇪 Dubai (DXB) — $390</option>
+              <option value="Singapore (SIN)" data-price="510">🇸🇬 Singapore (SIN) — $510</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- date & time (two columns) -->
+        <div class="date-row">
+          <div class="input-group">
+            <label><i class="fas fa-calendar-alt"></i> Departure date</label>
+            <input type="date" id="dateInput" value="2025-06-15">
+          </div>
+          <div class="input-group">
+            <label><i class="fas fa-clock"></i> Time</label>
+            <select id="timeSelect">
+              <option value="08:30">08:30 AM</option>
+              <option value="11:15" selected>11:15 AM</option>
+              <option value="14:45">02:45 PM</option>
+              <option value="18:20">06:20 PM</option>
+              <option value="21:50">09:50 PM</option>
+              <option value="23:59">11:59 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- class selector (custom) -->
+        <div class="input-group">
+          <label><i class="fas fa-couch"></i> Cabin class</label>
+          <div class="class-options" id="classOptions">
+            <div class="class-option selected" data-class="Economy" data-multiplier="1">
+              <i class="fas fa-chair"></i>
+              Economy
+              <small>standard</small>
+            </div>
+            <div class="class-option" data-class="Business" data-multiplier="1.8">
+              <i class="fas fa-briefcase"></i>
+              Business
+              <small>+80%</small>
+            </div>
+            <div class="class-option" data-class="First" data-multiplier="3.2">
+              <i class="fas fa-crown"></i>
+              First
+              <small>+220%</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- passenger count (extra, but adds depth) -->
+        <div class="input-group">
+          <label><i class="fas fa-user-friends"></i> Passengers</label>
+          <select id="passengerSelect">
+            <option value="1">1 adult</option>
+            <option value="2">2 adults</option>
+            <option value="3">3 adults</option>
+            <option value="4">4 adults</option>
+          </select>
+          <div class="hint">* price per person, total updates automatically</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: summary + pay -->
+      <div class="summary-panel">
+        <h2><i class="fas fa-receipt"></i> Order summary</h2>
+        <div class="summary-item">
+          <span><i class="fas fa-plane-departure"></i> Destination</span>
+          <span id="summaryDest">London (LHR)</span>
+        </div>
+        <div class="summary-item">
+          <span><i class="fas fa-calendar"></i> Date & time</span>
+          <span id="summaryDate">15 Jun 2025 · 11:15 AM</span>
+        </div>
+        <div class="summary-item">
+          <span><i class="fas fa-couch"></i> Class</span>
+          <span id="summaryClass">Economy</span>
+        </div>
+        <div class="summary-item">
+          <span><i class="fas fa-user"></i> Passengers</span>
+          <span id="summaryPax">1 adult</span>
+        </div>
+        <div class="summary-item total">
+          <span>Total</span>
+          <span id="summaryTotal">$320</span>
+        </div>
+
+        <!-- PAY & CONFIRM BUTTON -->
+        <button class="pay-btn" id="payBtn">
+          <i class="fas fa-credit-card"></i> Pay & confirm
+        </button>
+
+        <!-- confirmation appears here -->
+        <div class="confirmation-message" id="confirmationMsg">
+          <i class="fas fa-check-circle"></i>
+          <span id="confirmText">Booking confirmed! ✈️</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ----- DOM elements -----
+      const destinationSelect = document.getElementById('destinationSelect');
+      const dateInput = document.getElementById('dateInput');
+      const timeSelect = document.getElementById('timeSelect');
+      const passengerSelect = document.getElementById('passengerSelect');
+      
+      const classOptions = document.querySelectorAll('.class-option');
+      
+      // summary fields
+      const summaryDest = document.getElementById('summaryDest');
+      const summaryDate = document.getElementById('summaryDate');
+      const summaryClass = document.getElementById('summaryClass');
+      const summaryPax = document.getElementById('summaryPax');
+      const summaryTotal = document.getElementById('summaryTotal');
+      
+      const payBtn = document.getElementById('payBtn');
+      const confirmationMsg = document.getElementById('confirmationMsg');
+      const confirmText = document.getElementById('confirmText');
+
+      // ----- state -----
+      let selectedClass = 'Economy';
+      let classMultiplier = 1;
+
+      // helper: get base price from destination select
+      function getBasePrice() {
+        const opt = destinationSelect.options[destinationSelect.selectedIndex];
+        return Number(opt.dataset.price) || 320; // fallback
+      }
+
+      // helper: get destination text (without price)
+      function getDestinationName() {
+        const opt = destinationSelect.options[destinationSelect.selectedIndex];
+        let text = opt.textContent.trim();
+        // remove the price part like "— $320" and flag
+        text = text.replace(/—.*$/, '').trim();
+        // also remove leading flag emoji (if any) – but keep clean
+        text = text.replace(/[\u{1F1E6}-\u{1F1FF}]/gu, '').trim();
+        return text || 'London (LHR)';
+      }
+
+      // helper: format date
+      function formatDate(dateStr) {
+        if (!dateStr) return '15 Jun 2025';
+        const d = new Date(dateStr + 'T00:00:00');
+        if (isNaN(d)) return dateStr;
+        return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      }
+
+      // helper: format time from select (24h to 12h)
+      function formatTime(timeStr) {
+        if (!timeStr) return '11:15 AM';
+        const [hour, minute] = timeStr.split(':');
+        const h = parseInt(hour, 10);
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        const h12 = h % 12 || 12;
+        return `${h12}:${minute} ${ampm}`;
+      }
+
+      // get passenger count
+      function getPassengerCount() {
+        return Number(passengerSelect.value) || 1;
+      }
+
+      // get passenger label
+      function getPassengerLabel() {
+        const n = getPassengerCount();
+        return n === 1 ? '1 adult' : `${n} adults`;
+      }
+
+      // calculate total
+      function calculateTotal() {
+        const base = getBasePrice();
+        const pax = getPassengerCount();
+        const total = base * classMultiplier * pax;
+        return Math.round(total * 100) / 100;
+      }
+
+      // ----- update UI summary + total -----
+      function updateSummary() {
+        // destination
+        summaryDest.textContent = getDestinationName();
+
+        // date & time
+        const dateFormatted = formatDate(dateInput.value);
+        const timeFormatted = formatTime(timeSelect.value);
+        summaryDate.textContent = `${dateFormatted} · ${timeFormatted}`;
+
+        // class
+        summaryClass.textContent = selectedClass;
+
+        // passengers
+        summaryPax.textContent = getPassengerLabel();
+
+        // total
+        const total = calculateTotal();
+        summaryTotal.textContent = `$${total.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+      }
+
+      // ----- class selector logic -----
+      classOptions.forEach(opt => {
+        opt.addEventListener('click', function() {
+          // remove selected from all
+          classOptions.forEach(o => o.classList.remove('selected'));
+          // add to clicked
+          this.classList.add('selected');
+
+          // update state
+          selectedClass = this.dataset.class;
+          classMultiplier = parseFloat(this.dataset.multiplier) || 1;
+          
+          // hide confirmation when changing options
+          confirmationMsg.style.display = 'none';
+          
+          updateSummary();
+        });
+      });
+
+      // ----- event listeners for all inputs -----
+      destinationSelect.addEventListener('change', () => {
+        confirmationMsg.style.display = 'none';
+        updateSummary();
+      });
+
+      dateInput.addEventListener('change', () => {
+        confirmationMsg.style.display = 'none';
+        updateSummary();
+      });
+
+      timeSelect.addEventListener('change', () => {
+        confirmationMsg.style.display = 'none';
+        updateSummary();
+      });
+
+      passengerSelect.addEventListener('change', () => {
+        confirmationMsg.style.display = 'none';
+        updateSummary();
+      });
+
+      // ----- PAY & CONFIRM -----
+      payBtn.addEventListener('click', function() {
+        // basic validation: destination selected (always), date not empty, time not empty
+        if (!dateInput.value) {
+          alert('Please select a departure date.');
+          return;
+        }
+        if (!timeSelect.value) {
+          alert('Please select a departure time.');
+          return;
+        }
+
+        // get final details
+        const dest = getDestinationName();
+        const dateStr = formatDate(dateInput.value);
+        const timeStr = formatTime(timeSelect.value);
+        const paxLabel = getPassengerLabel();
+        const totalAmount = calculateTotal();
+        const totalFormatted = `$${totalAmount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`;
+
+        // show confirmation message with details
+        confirmText.textContent = `✅ Confirmed: ${dest} · ${dateStr} at ${timeStr} · ${selectedClass} · ${paxLabel} · Total ${totalFormatted}`;
+        confirmationMsg.style.display = 'flex';
+
+        // (optional) you can also change button text temporarily, but not needed
+
+        // simple animation / scroll into view for confirmation
+        confirmationMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // you could also log to console
+        console.log(`Booking confirmed: ${dest}, ${dateStr} ${timeStr}, ${selectedClass}, ${paxLabel}, ${totalFormatted}`);
+      });
+
+      // ----- initialize summary on page load -----
+      // Ensure default date is set (if input empty, set to today + 7 days? but we already have value)
+      if (!dateInput.value) {
+        // set default to a week from now
+        const today = new Date();
+        today.setDate(today.getDate() + 7);
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        dateInput.value = `${yyyy}-${mm}-${dd}`;
+      }
+
+      // Ensure default class is selected (Economy is selected by default in HTML)
+      // But sync multiplier if needed
+      const defaultSelected = document.querySelector('.class-option.selected');
+      if (defaultSelected) {
+        selectedClass = defaultSelected.dataset.class;
+        classMultiplier = parseFloat(defaultSelected.dataset.multiplier) || 1;
+      }
+
+      updateSummary();
+
+      // also hide confirmation initially if it was shown (just in case)
+      confirmationMsg.style.display = 'none';
+    })();
+  </script>
+</body>
+  </html>
